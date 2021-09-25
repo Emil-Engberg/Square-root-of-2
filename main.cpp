@@ -23,11 +23,9 @@ int main()
   dem.open("dem.txt",ios::out);
   mpz_int a = 3;
   mpz_int b = 2;
-  mpz_int a_temp;
   for(int i=0;i<35;i++ ){
-    a_temp = a;
     future<mpz_int> futnum =  async(calc_num, a,b);
-    future<mpz_int> futdem =  async(calc_dem,a_temp,b);
+    future<mpz_int> futdem =  async(calc_dem,a,b);
     a = futnum.get();
     b = futdem.get();
     cout << i << "\n";
