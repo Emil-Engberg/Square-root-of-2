@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <fstream>
 #include <iostream>
+#include <cstring>
 #include <future>
 #include <boost/multiprecision/mpfr.hpp>
 #include <boost/multiprecision/gmp.hpp>
@@ -14,39 +15,35 @@ mpz_int calc_num(mpz_int a, mpz_int b) {
 mpz_int calc_dem(mpz_int a, mpz_int b) {
   return 2*a*b;
 }
-mpz_int simplify(mpz_int a, mpz_int x){
-  return a/x;
-
-
-}
 int main()
 {
-  fstream num, dem, num_prev, dem_prev;
+  FILE *num, *dem, *num_prev, *dem_prev;
   mpz_int a = 3;
   mpz_int b = 2;
+  mpz_int a_temp;
   mpz_int x;
-  int n = 40;
-  for(int i=0;i<=n;i++ ){
-    future<mpz_int> futnum =  async(calc_num, a,b);
-    future<mpz_int> futdem =  async(calc_dem,a,b);
-    a = futnum.get();
-    b = futdem.get();
-    cout << i << "\n";
-    if(i == n-1){
-        num_prev.open("num_prev.txt",ios::out);
-	num_prev << a;
-	num_prev.close();
-	dem_prev.open("dem_prev.txt",ios::out);
-	dem_prev << b;
-	dem_prev.close();
+  int n = 36;
+  for(int i=0;i<n;i++ ){
+    a_temp = a;
+    a = a*a+2*b*b;
+    b *= 2*a_temp;
+    cout << i <<"\n";
+    if(i == n-2){
+      num_prev =fopen ("num_prev.bin","wb");
+      mpz_out_raw(num_prev,a.backend().data());
+      fclose(num_prev);
+      dem = fopen("dem_prev.bin", "wb");
+      mpz_out_raw(dem_prev,b.backend().data());
+      fclose(dem_prev);
     }
   }
-  num.open("num.txt",ios::out);
-  num << a;
-  num.close();
-  dem.open("dem.txt",ios::out);
-  dem << b;
-  dem.close();
+  num =fopen ("num.bin","wb");
+  mpz_out_raw(num,a.backend().data());
+  fclose(num);
+  dem = fopen("dem.bin", "wb");
+  mpz_out_raw(dem,b.backend().data());
+  fclose(dem);
+  cout << "Written numerator\n";
   return 0;
    
 }
