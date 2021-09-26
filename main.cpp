@@ -32,7 +32,7 @@ int main()
       num_prev =fopen ("num_prev.bin","wb");
       mpz_out_raw(num_prev,a.backend().data());
       fclose(num_prev);
-      dem = fopen("dem_prev.bin", "wb");
+      dem_prev = fopen("dem_prev.bin", "wb");
       mpz_out_raw(dem_prev,b.backend().data());
       fclose(dem_prev);
     }
