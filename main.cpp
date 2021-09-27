@@ -22,7 +22,7 @@ int main()
   mpz_int b = 2;
   mpz_int a_temp;
   mpz_int x;
-  int n = 36;
+  int n = 21;
   for(int i=0;i<n;i++ ){
     a_temp = a;
     a = a*a+2*b*b;
@@ -43,7 +43,6 @@ int main()
   dem = fopen("dem.bin", "wb");
   mpz_out_raw(dem,b.backend().data());
   fclose(dem);
-  cout << "Written numerator\n";
   return 0;
    
 }
