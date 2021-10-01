@@ -8,13 +8,6 @@
 using namespace boost::multiprecision;
 using namespace std;
 
-mpz_int calc_num(mpz_int a, mpz_int b) {
-  return a*a+2*b*b;
-}
-
-mpz_int calc_dem(mpz_int a, mpz_int b) {
-  return 2*a*b;
-}
 int main()
 {
   FILE *num, *dem, *num_prev, *dem_prev;
@@ -22,7 +15,7 @@ int main()
   mpz_int b = 2;
   mpz_int a_temp;
   mpz_int x;
-  int n = 21;
+  int n = 43;
   for(int i=0;i<n;i++ ){
     a_temp = a;
     a = a*a+2*b*b;

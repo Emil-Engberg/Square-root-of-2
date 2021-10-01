@@ -10,6 +10,13 @@
 using namespace boost::multiprecision;
 using namespace std;
 
+mpz_int pow2(mpz_int a, long long int b){
+  for(long long int i=0;i<b;i++){
+    a*=10;
+  }
+  return a;
+    
+}
 int main(){
   FILE *num, *dem, *num_prev, *dem_prev;
   mpz_int a,b,c,d,e;
@@ -38,15 +45,10 @@ int main(){
   fstream output;
   output.precision(0);
   output.open("output.txt",ios::out);
-  for(int i=0;i<g;i++){
-    int h = 0;
-    while(a>b){
-      a-=b;
-      h++;
-    }
-    output<< h;
-    a*=10;
-  }
+  mpz_int f=10;
+  mpz_int h;
+  mpz_pow_ui(&h.backend().data()[0],&f.backend().data()[0],g);
+  output << (a*h)/b;
   output.close();
   return 0;
 }
