@@ -48,7 +48,7 @@ int main(){
   mpz_int f=10;
   mpz_int h;
   mpz_pow_ui(&h.backend().data()[0],&f.backend().data()[0],g);
-  output << (a*h)/b;
+  output << (d*100000)/c;
   output.close();
   return 0;
 }

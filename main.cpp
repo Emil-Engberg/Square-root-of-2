@@ -13,29 +13,33 @@ int main()
   FILE *num, *dem, *num_prev, *dem_prev;
   mpz_int a = 3;
   mpz_int b = 2;
+  mpz_int c,d;
   mpz_int a_temp;
+  mpz_int e;
   mpz_int x;
-  int n = 43;
+  int n = 36;
   for(int i=0;i<n;i++ ){
     a_temp = a;
     a = a*a+2*b*b;
     b *= 2*a_temp;
     cout << i <<"\n";
     if(i == n-2){
-      num_prev =fopen ("num_prev.bin","wb");
-      mpz_out_raw(num_prev,a.backend().data());
-      fclose(num_prev);
-      dem_prev = fopen("dem_prev.bin", "wb");
-      mpz_out_raw(dem_prev,b.backend().data());
-      fclose(dem_prev);
+      d = b;
+      c = a;
+      
     }
   }
-  num =fopen ("num.bin","wb");
-  mpz_out_raw(num,a.backend().data());
-  fclose(num);
-  dem = fopen("dem.bin", "wb");
-  mpz_out_raw(dem,b.backend().data());
-  fclose(dem);
+  e = a*d-b*c;
+  long long int g = mpz_sizeinbase(b.backend().data(),10)+mpz_sizeinbase(d.backend().data(),10)-mpz_sizeinbase(e.backend().data(),10);
+  cout <<"Guarrantied precision: " << g << "\n";
+  fstream output;
+  output.precision(0);
+  output.open("output.txt",ios::out);
+  mpz_int f=10;
+  mpz_int h;
+  mpz_pow_ui(&h.backend().data()[0],&f.backend().data()[0],g);
+  output << (c*h)/d;
+  output.close();
   return 0;
    
 }
