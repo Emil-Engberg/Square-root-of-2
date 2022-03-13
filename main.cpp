@@ -17,7 +17,7 @@ int main()
   mpz_int a_temp;
   mpz_int e;
   mpz_int x;
-  int n = 36;
+  int n = 30;
   for(int i=0;i<n;i++ ){
     a_temp = a;
     a = a*a+2*b*b;
